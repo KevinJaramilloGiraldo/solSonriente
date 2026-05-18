@@ -1,0 +1,384 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paisaje Natural Animado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #1a1a2e;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contenedor {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ========== MEDIA QUERY PARA MÓVIL EN VERTICAL ========== */
+        @media (orientation: portrait) {
+            .contenedor {
+                /* El fondo imita el gradiente del cielo para que las franjas se fundan */
+                background: linear-gradient(to bottom, #3BB5EE 0%, #A8DFFE 100%);
+            }
+
+            svg {
+                /* La imagen se escala para caber completa en el ancho y no excede el alto */
+                width: 100%;
+                height: auto;
+                max-height: 100vh;
+            }
+        }
+
+        /* Animaciones (sin cambios) */
+        .nube-a { animation: moverNube 24s linear infinite; }
+        .nube-b { animation: moverNube2 32s linear infinite; }
+        .nube-c { animation: moverNube3 20s linear infinite; }
+
+        @keyframes moverNube {
+            0% { transform: translateX(-280px); }
+            100% { transform: translateX(1150px); }
+        }
+        @keyframes moverNube2 {
+            0% { transform: translateX(1150px); }
+            100% { transform: translateX(-280px); }
+        }
+        @keyframes moverNube3 {
+            0% { transform: translateX(-180px); }
+            100% { transform: translateX(1150px); }
+        }
+
+        .rio-brillo { animation: brilloRio 2.2s ease-in-out infinite alternate; }
+        @keyframes brilloRio {
+            0% { opacity: .25; }
+            100% { opacity: 1; }
+        }
+
+        .arbol-i1 { animation: mecer 3.5s ease-in-out infinite alternate; transform-origin: 155px 375px; }
+        .arbol-i2 { animation: mecer 4.1s ease-in-out infinite alternate-reverse; transform-origin: 240px 355px; }
+        .arbol-d1 { animation: mecer 3.8s ease-in-out infinite alternate; transform-origin: 680px 370px; }
+        .arbol-d2 { animation: mecer 4.3s ease-in-out infinite alternate-reverse; transform-origin: 760px 350px; }
+        @keyframes mecer {
+            0% { transform: rotate(-2.5deg); }
+            100% { transform: rotate(2.5deg); }
+        }
+
+        .flor1 { animation: mecerFlor 2.5s ease-in-out infinite alternate; transform-origin: 60px 478px; }
+        .flor2 { animation: mecerFlor 3.1s ease-in-out infinite alternate-reverse; transform-origin: 130px 472px; }
+        .flor3 { animation: mecerFlor 2.8s ease-in-out infinite alternate; transform-origin: 820px 476px; }
+        .flor4 { animation: mecerFlor 3.2s ease-in-out infinite alternate-reverse; transform-origin: 860px 474px; }
+        .flor5 { animation: mecerFlor 2.6s ease-in-out infinite alternate; transform-origin: 340px 500px; }
+        .flor6 { animation: mecerFlor 3.4s ease-in-out infinite alternate-reverse; transform-origin: 560px 500px; }
+        .flor7 { animation: mecerFlor 2.9s ease-in-out infinite alternate; transform-origin: 440px 510px; }
+        .flor8 { animation: mecerFlor 3.6s ease-in-out infinite alternate-reverse; transform-origin: 200px 488px; }
+        .flor9 { animation: mecerFlor 2.7s ease-in-out infinite alternate; transform-origin: 750px 490px; }
+        @keyframes mecerFlor {
+            0% { transform: rotate(-10deg); }
+            100% { transform: rotate(10deg); }
+        }
+
+        .pajaro1 { animation: volarP1 18s linear infinite; }
+        .pajaro2 { animation: volarP2 24s linear infinite 4s; }
+        @keyframes volarP1 {
+            0% { transform: translate(-60px, 0); }
+            100% { transform: translate(980px, -25px); }
+        }
+        @keyframes volarP2 {
+            0% { transform: translate(980px, 0); }
+            100% { transform: translate(-60px, 35px); }
+        }
+
+        .burbuja1 { animation: subirBurbuja 3.2s ease-in-out infinite; }
+        .burbuja2 { animation: subirBurbuja 4.1s ease-in-out infinite 1.2s; }
+        .burbuja3 { animation: subirBurbuja 3.8s ease-in-out infinite 2s; }
+        @keyframes subirBurbuja {
+            0% { transform: translateY(0); opacity: .6; }
+            100% { transform: translateY(-22px); opacity: 0; }
+        }
+
+        .sol-rayos { animation: girarRayos 12s linear infinite; transform-origin: 100px 88px; }
+        @keyframes girarRayos {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .frase-texto { animation: aparecer 2.5s ease-in-out forwards; }
+        @keyframes aparecer {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <svg viewBox="0 0 900 540" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <!-- El contenido del SVG se mantiene exactamente igual -->
+            <defs>
+                <linearGradient id="gCielo" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#3BB5EE" />
+                    <stop offset="100%" stop-color="#A8DFFE" />
+                </linearGradient>
+                <linearGradient id="gMontB" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#8EB48A" />
+                    <stop offset="100%" stop-color="#5A8C62" />
+                </linearGradient>
+                <linearGradient id="gMontF" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#4A7C4E" />
+                    <stop offset="100%" stop-color="#2E6032" />
+                </linearGradient>
+                <linearGradient id="gPasto" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#52C23A" />
+                    <stop offset="100%" stop-color="#2A8020" />
+                </linearGradient>
+                <linearGradient id="gRio" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#2288BB" />
+                    <stop offset="30%" stop-color="#44BBEE" />
+                    <stop offset="50%" stop-color="#66DDFF" />
+                    <stop offset="70%" stop-color="#44BBEE" />
+                    <stop offset="100%" stop-color="#2288BB" />
+                </linearGradient>
+                <linearGradient id="gTronco" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#8B5E3C" />
+                    <stop offset="100%" stop-color="#5C3A1E" />
+                </linearGradient>
+            </defs>
+
+            <!-- CIELO -->
+            <rect width="900" height="540" fill="url(#gCielo)" />
+
+            <!-- SOL con rayos giratorios -->
+            <g class="sol-rayos">
+                <line x1="100" y1="58" x2="100" y2="38" stroke="#FFD600" stroke-width="4" stroke-linecap="round" opacity=".9" />
+                <line x1="100" y1="118" x2="100" y2="138" stroke="#FFD600" stroke-width="4" stroke-linecap="round" opacity=".9" />
+                <line x1="70" y1="88" x2="50" y2="88" stroke="#FFD600" stroke-width="4" stroke-linecap="round" opacity=".9" />
+                <line x1="130" y1="88" x2="150" y2="88" stroke="#FFD600" stroke-width="4" stroke-linecap="round" opacity=".9" />
+                <line x1="79" y1="67" x2="65" y2="53" stroke="#FFD600" stroke-width="3.5" stroke-linecap="round" opacity=".8" />
+                <line x1="121" y1="109" x2="135" y2="123" stroke="#FFD600" stroke-width="3.5" stroke-linecap="round" opacity=".8" />
+                <line x1="121" y1="67" x2="135" y2="53" stroke="#FFD600" stroke-width="3.5" stroke-linecap="round" opacity=".8" />
+                <line x1="79" y1="109" x2="65" y2="123" stroke="#FFD600" stroke-width="3.5" stroke-linecap="round" opacity=".8" />
+            </g>
+            <circle cx="100" cy="88" r="46" fill="#FFD600" opacity=".18" />
+            <circle cx="100" cy="88" r="36" fill="#FFD600" />
+            <circle cx="100" cy="88" r="26" fill="#FFF176" />
+            <circle cx="90" cy="83" r="3.5" fill="#E65100" />
+            <circle cx="110" cy="83" r="3.5" fill="#E65100" />
+            <path d="M90 97 Q100 105 110 97" stroke="#E65100" stroke-width="2.2" fill="none" stroke-linecap="round" />
+
+            <!-- NUBE A -->
+            <g class="nube-a" opacity=".97">
+                <ellipse cx="250" cy="118" rx="72" ry="38" fill="white" />
+                <ellipse cx="200" cy="130" rx="48" ry="32" fill="white" />
+                <ellipse cx="310" cy="128" rx="50" ry="32" fill="white" />
+                <ellipse cx="240" cy="100" rx="44" ry="30" fill="white" />
+                <ellipse cx="280" cy="96" rx="38" ry="26" fill="white" />
+                <ellipse cx="250" cy="142" rx="80" ry="22" fill="white" />
+            </g>
+
+            <!-- NUBE B -->
+            <g class="nube-b" opacity=".95">
+                <ellipse cx="710" cy="88" rx="80" ry="42" fill="white" />
+                <ellipse cx="650" cy="104" rx="56" ry="36" fill="white" />
+                <ellipse cx="778" cy="102" rx="54" ry="36" fill="white" />
+                <ellipse cx="700" cy="68" rx="52" ry="34" fill="white" />
+                <ellipse cx="748" cy="64" rx="44" ry="30" fill="white" />
+                <ellipse cx="710" cy="116" rx="90" ry="26" fill="white" />
+            </g>
+
+            <!-- NUBE C -->
+            <g class="nube-c" opacity=".90">
+                <ellipse cx="490" cy="65" rx="58" ry="30" fill="white" />
+                <ellipse cx="448" cy="76" rx="38" ry="24" fill="white" />
+                <ellipse cx="536" cy="74" rx="40" ry="24" fill="white" />
+                <ellipse cx="480" cy="50" rx="36" ry="22" fill="white" />
+                <ellipse cx="516" cy="48" rx="30" ry="20" fill="white" />
+                <ellipse cx="490" cy="86" rx="64" ry="18" fill="white" />
+            </g>
+
+            <!-- MONTAÑAS TRASERAS -->
+            <polygon points="0,370 140,205 280,370" fill="url(#gMontB)" opacity=".60" />
+            <polygon points="620,370 760,190 900,370" fill="url(#gMontB)" opacity=".60" />
+            <polygon points="140,205 122,250 158,250" fill="white" opacity=".80" />
+            <polygon points="760,190 742,238 778,238" fill="white" opacity=".80" />
+
+            <!-- MONTAÑAS DELANTERAS -->
+            <polygon points="0,410 210,225 420,410" fill="url(#gMontF)" />
+            <polygon points="480,410 690,210 900,410" fill="url(#gMontF)" />
+            <polygon points="210,225 186,275 234,275" fill="white" opacity=".95" />
+            <polygon points="690,210 666,262 714,262" fill="white" opacity=".95" />
+
+            <!-- PASTO -->
+            <rect x="0" y="408" width="900" height="132" fill="url(#gPasto)" />
+            <ellipse cx="450" cy="410" rx="490" ry="26" fill="#60D440" opacity=".45" />
+
+            <!-- RÍO de lado a lado -->
+            <path d="M-10,448 Q80,428 180,442 Q280,456 380,436 Q470,418 560,432 Q660,446 760,428 Q840,416 910,432"
+            stroke="url(#gRio)" stroke-width="38" fill="none" stroke-linecap="round" opacity=".92" />
+            <path d="M-10,445 Q80,425 180,439 Q280,453 380,433 Q470,415 560,429 Q660,443 760,425 Q840,413 910,429"
+            stroke="#1A7AAA" stroke-width="2" fill="none" stroke-linecap="round" opacity=".35" />
+            <path d="M-10,467 Q80,450 180,462 Q280,474 380,456 Q470,440 560,453 Q660,466 760,450 Q840,438 910,453"
+            stroke="#1A7AAA" stroke-width="2" fill="none" stroke-linecap="round" opacity=".30" />
+            <path class="rio-brillo" d="M40,440 Q90,430 140,438" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" />
+            <path class="rio-brillo" d="M210,446 Q268,434 320,444" stroke="white" stroke-width="2.8" fill="none" stroke-linecap="round" />
+            <path class="rio-brillo" d="M400,434 Q450,424 500,434" stroke="white" stroke-width="2.8" fill="none" stroke-linecap="round" />
+            <path class="rio-brillo" d="M555,438 Q610,428 660,438" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <path class="rio-brillo" d="M710,428 Q770,418 820,428" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            <circle class="burbuja1" cx="160" cy="444" r="3.2" fill="none" stroke="white" stroke-width="1.3" opacity=".6" />
+            <circle class="burbuja2" cx="450" cy="430" r="2.8" fill="none" stroke="white" stroke-width="1.2" opacity=".55" />
+            <circle class="burbuja3" cx="740" cy="435" r="3" fill="none" stroke="white" stroke-width="1.2" opacity=".5" />
+
+            <!-- ÁRBOL IZQUIERDA 1 -->
+            <g class="arbol-i1">
+                <rect x="148" y="372" width="14" height="50" rx="4" fill="url(#gTronco)" />
+                <ellipse cx="155" cy="362" rx="32" ry="28" fill="#1A6820" />
+                <ellipse cx="155" cy="346" rx="26" ry="24" fill="#2E7D32" />
+                <ellipse cx="155" cy="330" rx="20" ry="20" fill="#388E3C" />
+                <ellipse cx="155" cy="314" rx="15" ry="15" fill="#43A047" />
+                <circle cx="140" cy="350" r="5.5" fill="#E53935" />
+                <circle cx="169" cy="355" r="4.5" fill="#E53935" />
+            </g>
+
+            <!-- ÁRBOL IZQUIERDA 2 -->
+            <g class="arbol-i2">
+                <rect x="228" y="348" width="16" height="60" rx="4" fill="url(#gTronco)" />
+                <ellipse cx="236" cy="336" rx="36" ry="32" fill="#145218" />
+                <ellipse cx="236" cy="318" rx="29" ry="26" fill="#1B6B20" />
+                <ellipse cx="236" cy="300" rx="22" ry="22" fill="#2E7D32" />
+                <ellipse cx="236" cy="284" rx="16" ry="16" fill="#388E3C" />
+                <circle cx="220" cy="322" r="5" fill="#FFA726" />
+                <circle cx="252" cy="327" r="4" fill="#FFA726" />
+            </g>
+
+            <!-- ÁRBOL DERECHA 1 -->
+            <g class="arbol-d1">
+                <rect x="672" y="368" width="14" height="52" rx="4" fill="url(#gTronco)" />
+                <ellipse cx="679" cy="358" rx="32" ry="28" fill="#1A6820" />
+                <ellipse cx="679" cy="342" rx="26" ry="24" fill="#2E7D32" />
+                <ellipse cx="679" cy="326" rx="20" ry="20" fill="#388E3C" />
+                <ellipse cx="679" cy="310" rx="15" ry="15" fill="#43A047" />
+                <circle cx="664" cy="346" r="5" fill="#E53935" />
+                <circle cx="693" cy="350" r="4.5" fill="#E53935" />
+            </g>
+
+            <!-- ÁRBOL DERECHA 2 -->
+            <g class="arbol-d2">
+                <rect x="752" y="345" width="16" height="62" rx="4" fill="url(#gTronco)" />
+                <ellipse cx="760" cy="333" rx="36" ry="32" fill="#145218" />
+                <ellipse cx="760" cy="315" rx="29" ry="26" fill="#1B6B20" />
+                <ellipse cx="760" cy="297" rx="22" ry="22" fill="#2E7D32" />
+                <ellipse cx="760" cy="281" rx="16" ry="16" fill="#388E3C" />
+                <circle cx="744" cy="319" r="5" fill="#FFA726" />
+                <circle cx="776" cy="324" r="4" fill="#FFA726" />
+            </g>
+
+            <!-- FLORES EN EL PASTO -->
+            <g class="flor1">
+                <line x1="60" y1="484" x2="60" y2="496" stroke="#3A7A20" stroke-width="2.2" />
+                <circle cx="60" cy="478" r="6" fill="#FF6B8A" />
+                <circle cx="54" cy="481" r="4" fill="#FF8FAA" opacity=".8" />
+                <circle cx="66" cy="481" r="4" fill="#FF8FAA" opacity=".8" />
+                <circle cx="60" cy="480" r="3" fill="#FFE080" />
+            </g>
+            <g class="flor8">
+                <line x1="100" y1="490" x2="100" y2="502" stroke="#3A7A20" stroke-width="2.2" />
+                <circle cx="100" cy="484" r="6" fill="#A855F7" />
+                <circle cx="94" cy="487" r="4" fill="#C084FC" opacity=".8" />
+                <circle cx="106" cy="487" r="4" fill="#C084FC" opacity=".8" />
+                <circle cx="100" cy="486" r="3" fill="#FFE080" />
+            </g>
+            <g class="flor2">
+                <line x1="140" y1="480" x2="140" y2="492" stroke="#3A7A20" stroke-width="2.2" />
+                <circle cx="140" cy="474" r="6" fill="#FBBF24" />
+                <circle cx="134" cy="477" r="4" fill="#FCD34D" opacity=".8" />
+                <circle cx="146" cy="477" r="4" fill="#FCD34D" opacity=".8" />
+                <circle cx="140" cy="476" r="3" fill="#FFF" />
+            </g>
+            <g class="flor5">
+                <line x1="310" y1="502" x2="310" y2="514" stroke="#3A7A20" stroke-width="2.2" />
+                <circle cx="310" cy="496" r="6" fill="#34D399" />
+                <circle cx="304" cy="499" r="4" fill="#6EE7B7" opacity=".8" />
+                <circle cx="316" cy="499" r="4" fill="#6EE7B7" opacity=".8" />
+                <circle cx="310" cy="498" r="3" fill="#FFE080" />
+            </g>
+            <g class="flor7">
+                <line x1="450" y1="510" x2="450" y2="522" stroke="#3A7A20" stroke-width="2.2" />
+                <circle cx="450" cy="504" r="7" fill="#F87171" />
+                <circle cx="442" cy="508" r="5" fill="#FCA5A5" opacity=".8" />
+                <circle cx="458" cy="508" r="5" fill="#FCA5A5" opacity=".8" />
+                <circle cx="450" cy="506" r="3.5" fill="#FFE080" />
+            </g>
+            <g class="flor6">
+                <line x1="590" y1="502" x2="590" y2="514" stroke="#3A7A20" stroke-width="2.2" />
+                <circle cx="590" cy="496" r="6" fill="#FF6B8A" />
+                <circle cx="584" cy="499" r="4" fill="#FF8FAA" opacity=".8" />
+                <circle cx="596" cy="499" r="4" fill="#FF8FAA" opacity=".8" />
+                <circle cx="590" cy="498" r="3" fill="#FFE080" />
+            </g>
+            <g class="flor9">
+                <line x1="760" y1="488" x2="760" y2="500" stroke="#3A7A20" stroke-width="2.2" />
+                <circle cx="760" cy="482" r="6" fill="#A855F7" />
+                <circle cx="754" cy="485" r="4" fill="#C084FC" opacity=".8" />
+                <circle cx="766" cy="485" r="4" fill="#C084FC" opacity=".8" />
+                <circle cx="760" cy="484" r="3" fill="#FFE080" />
+            </g>
+            <g class="flor3">
+                <line x1="810" y1="484" x2="810" y2="496" stroke="#3A7A20" stroke-width="2.2" />
+                <circle cx="810" cy="478" r="6" fill="#FBBF24" />
+                <circle cx="804" cy="481" r="4" fill="#FCD34D" opacity=".8" />
+                <circle cx="816" cy="481" r="4" fill="#FCD34D" opacity=".8" />
+                <circle cx="810" cy="480" r="3" fill="#FFF" />
+            </g>
+            <g class="flor4">
+                <line x1="855" y1="480" x2="855" y2="492" stroke="#3A7A20" stroke-width="2.2" />
+                <circle cx="855" cy="474" r="6" fill="#34D399" />
+                <circle cx="849" cy="477" r="4" fill="#6EE7B7" opacity=".8" />
+                <circle cx="861" cy="477" r="4" fill="#6EE7B7" opacity=".8" />
+                <circle cx="855" cy="476" r="3" fill="#FFE080" />
+            </g>
+
+            <!-- PÁJAROS -->
+            <g class="pajaro1">
+                <path d="M200,145 Q206,139 212,145" stroke="#334" stroke-width="2" fill="none" stroke-linecap="round" />
+                <path d="M212,145 Q218,139 224,145" stroke="#334" stroke-width="2" fill="none" stroke-linecap="round" />
+            </g>
+            <g class="pajaro2">
+                <path d="M600,120 Q607,113 614,120" stroke="#334" stroke-width="2" fill="none" stroke-linecap="round" />
+                <path d="M614,120 Q621,113 628,120" stroke="#334" stroke-width="2" fill="none" stroke-linecap="round" />
+            </g>
+
+            <!-- FRASE CENTRAL -->
+            <g class="frase-texto">
+                <rect x="195" y="172" width="510" height="78" rx="18" fill="#0B3D2E" opacity=".38" />
+                <rect x="190" y="167" width="510" height="78" rx="18" fill="#F0FFF8" opacity=".88" />
+                <rect x="190" y="167" width="510" height="78" rx="18" fill="none" stroke="#2E8B57" stroke-width="1.5" opacity=".6" />
+                <text x="445" y="198" text-anchor="middle" font-family="Georgia, serif" font-size="18" font-weight="700" fill="#1B4332" letter-spacing="1">La naturaleza habla en silencio...</text>
+                <text x="445" y="225" text-anchor="middle" font-family="Georgia, serif" font-size="14" font-weight="400" fill="#2D6A4F" font-style="italic" letter-spacing="0.5">solo hay que aprender a escucharla.</text>
+            </g>
+        </svg>
+    </div>
+</body>
+</html>
